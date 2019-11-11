@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>Cadastrar Usuarios</title>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 2000 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<header>
+		<nav
+			class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="btn btn-dark navbar-toggle pull-left">
+						<i class="oi oi-menu"></i>
+					</button>
+					<a class="navbar-brand navbar-toggle pull-left" href="/">ADO
+						DSW - CRUD de USUÁRIOS</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="layout-main">
+
+		<section class="layout-content">
+			<br> <br> <br>
+			<nav class="navbar navbar-expand-md bg-light">
+				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active"><i class="oi oi-caret-right"></i>
+							<span>Cadastrar Usuarios</span></li>
+					</ul>
+					<a class="btn btn-primary btn-md" href="/usuarios/listar"
+						role="button"> <span class="oi oi-spreadsheet" title="Listar"
+						aria-hidden="true"></span> <span>Listar Usuarios</span>
+					</a>
+				</div>
+			</nav>
+
+			<div class="container" id="cadastro">
+				<br> <br>
+
+				<div th:replace="fragments/alert"></div>
+
+				<form
+					th:action="${usuario.id == null} ? @{/usuarios/salvar} : @{/usuarios/editar}"
+					th:object="${usuario}" method="POST">
+					<div class="form-group row">
+						<label for="username" class="col-md-2 col-form-label">Username</label>
+						<div class="col-md-10">
+							<input type="text" class="form-control" id="username"
+								placeholder="Username" th:field="*{username}"
+								required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="nome" class="col-md-2 col-form-label">Nome
+							Completo</label>
+						<div class="col-md-10">
+							<input type="text" class="form-control" id="nome"
+								placeholder="Nome Completo" th:field="*{nomeCompleto}"
+								required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="senha" class="col-md-2 col-form-label">Senha</label>
+						<div class="col-md-10">
+							<input type="password" class="form-control" id="senha"
+								placeholder="Senha" th:field="*{senha}" required="required">
+						</div>
+					</div>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-md-2 pt-0">Status de
+								ativação</legend>
+							<div class="col-md-10">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" id="ativado"
+										th:field="*{ativado}" th:value="${true}" checked="checked">
+									<label class="form-check-label" for="ativado"> Ativado
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" id="desativado"
+										th:field="*{ativado}" th:value="${false}"> <label
+										class="form-check-label" for="desativado"> Desativado
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="form-group row">
+						<div class="col-md-2">
+							<label for="papeis">Papéis</label>
+						</div>
+						<div class="col-md-10">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="admin"
+									th:field="*{papeis}" th:value="${1}"> <label
+									class="form-check-label" for="admin"> ADMIN </label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="papel1"
+									th:field="*{papeis}" th:value="${2}"> <label
+									class="form-check-label" for="papel1"> PAPEL1 </label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="papel2"
+									th:field="*{papeis}" th:value="${3}"> <label
+									class="form-check-label" for="papel2"> PAPEL2 </label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="papel3"
+									th:field="*{papeis}" th:value="${4}" checked="checked">
+								<label class="form-check-label" for="papel3"> PAPEL3 </label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-4"></div>
+						<div class="col-md-2">
+							<input type="hidden" id="id" th:field="*{id}" />
+							<button type="submit" class="btn btn-success btn-block">Salvar</button>
+						</div>
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-warning btn-block">Cancelar</button>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+				</form>
+			</div>
+		</section>
+
+	</div>
+</body>
+</html>
+
